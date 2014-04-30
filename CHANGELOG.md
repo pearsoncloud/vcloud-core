@@ -1,3 +1,9 @@
+## 0.1.0 (2014-04-30)
+
+Features:
+
+  - breaking changes to move Vcloud::Fog::*, Vcloud::Query and Vcloud::QueryRunner under Vcloud::Core namespace
+
 ## 0.0.12 (2014-04-22)
 
 Bugfix:
