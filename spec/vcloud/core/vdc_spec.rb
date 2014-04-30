@@ -7,7 +7,7 @@ module Vcloud
       before(:each) do
         @vdc_id = '12345678-1234-1234-1234-000000111232'
         @mock_fog_interface = StubFogInterface.new
-        Vcloud::Fog::ServiceInterface.stub(:new).and_return(@mock_fog_interface)
+        Vcloud::Core::Fog::ServiceInterface.stub(:new).and_return(@mock_fog_interface)
       end
 
       context "Class public interface" do

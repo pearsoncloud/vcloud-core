@@ -11,7 +11,7 @@ module Vcloud
         @vdc_name  = 'test-vdc-1'
         @net_name  = 'test-net-1'
         @mock_fog_interface = StubFogInterface.new
-        Vcloud::Fog::ServiceInterface.stub(:new).and_return(@mock_fog_interface)
+        Vcloud::Core::Fog::ServiceInterface.stub(:new).and_return(@mock_fog_interface)
         Vdc.any_instance.stub(:id).and_return(@vdc_id)
         @mock_vdc = double(:vdc, :id => @vdc_id)
         Vdc.stub(:get_by_name).and_return(@mock_vdc)

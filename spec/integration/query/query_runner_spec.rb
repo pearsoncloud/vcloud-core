@@ -194,7 +194,7 @@ module Vcloud
         end
 
         after(:all) do
-          fsi = Vcloud::Fog::ServiceInterface.new()
+          fsi = Vcloud::Core::Fog::ServiceInterface.new()
           @test_case_vapps.each do |vapp|
             fsi.delete_vapp(vapp.id)
           end

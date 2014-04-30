@@ -6,7 +6,7 @@ module Vcloud
       before(:each) do
         @vapp_id = 'vapp-12345678-1234-1234-1234-000000111111'
         @mock_fog_interface = StubFogInterface.new
-        Vcloud::Fog::ServiceInterface.stub(:new).and_return(@mock_fog_interface)
+        Vcloud::Core::Fog::ServiceInterface.stub(:new).and_return(@mock_fog_interface)
       end
 
       context "Class public interface" do

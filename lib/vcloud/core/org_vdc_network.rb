@@ -33,7 +33,7 @@ module Vcloud
 
         begin
           Vcloud::Core.logger.info("Provisioning new OrgVdcNetwork #{name} in vDC '#{vdc_name}'")
-          attrs = Vcloud::Fog::ServiceInterface.new.post_create_org_vdc_network(vdc.id, name, options)
+          attrs = Vcloud::Core::Fog::ServiceInterface.new.post_create_org_vdc_network(vdc.id, name, options)
         rescue RuntimeError => e
           Vcloud::Core.logger.error("Could not provision orgVdcNetwork: #{e.message}")
         end
@@ -44,7 +44,7 @@ module Vcloud
       end
 
       def vcloud_attributes
-        Vcloud::Fog::ServiceInterface.new.get_network(id)
+        Vcloud::Core::Fog::ServiceInterface.new.get_network(id)
       end
 
       def name
@@ -56,7 +56,7 @@ module Vcloud
       end
 
       def delete
-        Vcloud::Fog::ServiceInterface.new.delete_network(id)
+        Vcloud::Core::Fog::ServiceInterface.new.delete_network(id)
       end
 
       private

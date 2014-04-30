@@ -7,7 +7,7 @@ module Vcloud
       before(:each) do
         @id = 'vappTemplate-12345678-1234-1234-1234-000000234121'
         @mock_fog_interface = StubFogInterface.new
-        Vcloud::Fog::ServiceInterface.stub(:new).and_return(@mock_fog_interface)
+        Vcloud::Core::Fog::ServiceInterface.stub(:new).and_return(@mock_fog_interface)
         @test_config = {
             :catalog => 'test_catalog',
             :catalog_item => 'test_template'
