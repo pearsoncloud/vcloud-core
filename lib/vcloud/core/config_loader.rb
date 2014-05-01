@@ -1,9 +1,19 @@
+require 'erb'
+require 'ostruct'
+
 module Vcloud
   module Core
     class ConfigLoader
 
       def load_config(config_file, schema = nil, vars_file = nil)
-        input_config = YAML::load(File.open(config_file))
+        if vars_file
+          vars = OpenStruct.new(YAML::load_file(vars_file))
+          template = ERB.new(File.read(config_file))
+          rendered_config = template.result(vars.instance_eval { binding })
+          input_config = YAML::load(rendered_config)
+        else
+          input_config = YAML::load_file(config_file)
+        end
 
         # There is no way in YAML or Ruby to symbolize keys in a hash
         json_string = JSON.generate(input_config)
@@ -18,6 +28,7 @@ module Vcloud
             raise("Supplied configuration does not match supplied schema")
           end
         end
+
         config
       end
 
