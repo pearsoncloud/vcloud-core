@@ -203,6 +203,65 @@ module Vcloud
         actual_config = edge_gateway.vcloud_attributes[:Configuration][:EdgeGatewayServiceConfiguration]
         actual_config[:LoadBalancerService].should == configuration[:LoadBalancerService]
       end
+
+      it "configures a NAT 'service'" do
+        network_1            = ENV['VCLOUD_NETWORK1_NAME']
+        network_1_id         = ENV['VCLOUD_NETWORK1_ID']
+        provider_network     = ENV['VCLOUD_PROVIDER_NETWORK_NAME']
+        provider_network_ip  = ENV['VCLOUD_PROVIDER_NETWORK_IP']
+        provider_network_id  = ENV['VCLOUD_PROVIDER_NETWORK_ID']
+        network_1_nat_ip     = ENV['VCLOUD_NETWORK1_NAT_IP']
+
+        configuration = {
+            :NatService =>
+                {
+                    :IsEnabled => "true",
+                    :NatRule   =>
+                      [
+                        {
+                          :Id             => "65537",
+                          :RuleType       => "SNAT",
+                          :IsEnabled      => "true",
+                          :GatewayNatRule =>
+                          {
+                            :Interface =>
+                                {
+                                  :type => "application/vnd.vmware.admin.network+xml",
+                                  :name => provider_network,
+                                  :href => "https://api.vcd.portal.skyscapecloud.com/api/admin/network/" + provider_network_id,
+                                },
+                                :OriginalIp   => network_1_nat_ip,
+                                :TranslatedIp => provider_network_ip,
+                          }
+                        },
+                        {
+                          :Id             => "65538",
+                          :RuleType       => "DNAT",
+                          :IsEnabled      => "true",
+                          :GatewayNatRule =>
+                          {
+                            :Interface =>
+                                {
+                                  :type => "application/vnd.vmware.admin.network+xml",
+                                  :name => provider_network,
+                                  :href => "https://api.vcd.portal.skyscapecloud.com/api/admin/network/" + provider_network_id,
+                                },
+                                :OriginalIp     => provider_network_ip,
+                                :OriginalPort   => "80",
+                                :TranslatedIp   => network_1_nat_ip,
+                                :TranslatedPort => "999",
+                                :Protocol       => "tcp"
+                          }
+                        }
+                      ]
+                }
+        }
+        edge_gateway = EdgeGateway.get_by_name(ENV['VCLOUD_EDGE_GATEWAY'])
+        edge_gateway.update_configuration(configuration)
+
+        actual_config = edge_gateway.vcloud_attributes[:Configuration][:EdgeGatewayServiceConfiguration]
+        actual_config[:NatService].should == configuration[:NatService]
+      end
     end
   end
 end
