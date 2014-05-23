@@ -211,6 +211,8 @@ module Vcloud
         provider_network_ip  = ENV['VCLOUD_PROVIDER_NETWORK_IP']
         provider_network_id  = ENV['VCLOUD_PROVIDER_NETWORK_ID']
         network_1_nat_ip     = ENV['VCLOUD_NETWORK1_NAT_IP']
+        dnat_rule_id         = ENV['VCLOUD_DNAT_RULE_ID']
+        snat_rule_id         = ENV['VCLOUD_SNAT_RULE_ID']
 
         configuration = {
             :NatService =>
@@ -219,7 +221,7 @@ module Vcloud
                     :NatRule   =>
                       [
                         {
-                          :Id             => "65537",
+                          :Id             => snat_rule_id,
                           :RuleType       => "SNAT",
                           :IsEnabled      => "true",
                           :GatewayNatRule =>
@@ -235,7 +237,7 @@ module Vcloud
                           }
                         },
                         {
-                          :Id             => "65538",
+                          :Id             => dnat_rule_id,
                           :RuleType       => "DNAT",
                           :IsEnabled      => "true",
                           :GatewayNatRule =>
