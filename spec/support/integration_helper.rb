@@ -29,7 +29,7 @@ module IntegrationHelper
     end
   end
 
-  def self.reset_edge_gateway(edge_name)
+  def self.reset_edge_gateway(edge_gateway)
     configuration = {
         :FirewallService =>
             {
@@ -51,7 +51,6 @@ module IntegrationHelper
             },
     }
 
-    edge_gateway = Vcloud::Core::EdgeGateway.get_by_name(edge_name)
     edge_gateway.update_configuration(configuration)
   end
 end
