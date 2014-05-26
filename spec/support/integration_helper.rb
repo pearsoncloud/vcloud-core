@@ -29,4 +29,29 @@ module IntegrationHelper
     end
   end
 
+  def self.reset_edge_gateway(edge_name)
+    configuration = {
+        :FirewallService =>
+            {
+                :IsEnabled        => "false",
+                :FirewallRule     => [],
+                :DefaultAction    => "drop",
+                :LogDefaultAction => "false",
+            },
+        :LoadBalancerService =>
+            {
+                :IsEnabled      => "false",
+                :Pool           => [],
+                :VirtualServer  => [],
+            },
+        :NatService =>
+            {
+                :IsEnabled  => "false",
+                :NatRule    => [],
+            },
+    }
+
+    edge_gateway = Vcloud::Core::EdgeGateway.get_by_name(edge_name)
+    edge_gateway.update_configuration(configuration)
+  end
 end
