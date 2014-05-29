@@ -101,12 +101,12 @@ module Vcloud
       context "when retrieving vCloud attributes" do
         it "returns the correct edge gateway for a given ID" do
           vcloud_attributes = edge_gateway.vcloud_attributes
-          expect(vcloud_attributes[:href]).to match(edge_gateway_id + "$")
+          expect(vcloud_attributes[:href]).to include(edge_gateway_id)
         end
 
         it "returns the correct href for a given edge gateway" do
           href = edge_gateway.href
-          expect(href).to match(edge_gateway_id + "$")
+          expect(href).to include(edge_gateway_id)
         end
 
         it "returns the correct name for a given edge gateway" do
