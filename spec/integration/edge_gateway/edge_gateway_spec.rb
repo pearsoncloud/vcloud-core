@@ -123,7 +123,7 @@ module Vcloud
           interfaces = edge_gateway.interfaces
           network_1_interface = interfaces.detect { |i| i.name == network_1 }
 
-          expect(interfaces).to               have(3).things
+          expect(interfaces.first).to         be_a(Vcloud::Core::EdgeGatewayInterface)
           expect(network_1_interface.name).to eq(network_1)
         end
       end
