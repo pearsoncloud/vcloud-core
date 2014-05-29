@@ -121,7 +121,7 @@ module Vcloud
 
         it "returns a hash of interface objects" do
           interfaces = edge_gateway.interfaces
-          network_1_interface = interfaces[2]
+          network_1_interface = interfaces.detect { |i| i.name == network_1 }
 
           expect(interfaces).to               have(3).things
           expect(network_1_interface.name).to eq(network_1)
