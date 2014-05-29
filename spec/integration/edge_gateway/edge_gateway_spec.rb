@@ -81,7 +81,7 @@ module Vcloud
 
         it "raise an exception if edge gateway with given ID is not found" do
           name = "this-would-never-exist"
-          expect { Vcloud::Core::EdgeGateway.get_by_name(name) }.to raise_error("edgeGateway " + name + " not found")
+          expect { Vcloud::Core::EdgeGateway.get_by_name(name) }.to raise_error("edgeGateway #{name} not found")
         end
       end
 
