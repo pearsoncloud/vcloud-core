@@ -119,7 +119,7 @@ module Vcloud
       context "when retrieving a gateway's interfaces" do
         let(:network_1) { @test_data.network_1 }
 
-        it "returns a hash of interface objects" do
+        it "returns an array of interface objects" do
           interfaces = edge_gateway.interfaces
           network_1_interface = interfaces.detect { |i| i.name == network_1 }
 
